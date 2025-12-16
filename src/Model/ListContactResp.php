@@ -7,7 +7,7 @@ namespace Sendflare\SDK\Model;
  */
 class ListContactResp extends PaginateResp
 {
-    /** @var ContactItem[] */
-    public array $data = [];
+    /** @var array<string, string>[] */
+    public array $list = [];
 }
 
