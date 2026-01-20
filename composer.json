@@ -9,12 +9,12 @@
         "php",
         "api"
     ],
-    "homepage": "https://docs.sendflare.io",
+    "homepage": "https://docs.sendflare.com",
     "license": "MIT",
     "authors": [
         {
             "name": "Sendflare Team",
-            "homepage": "https://sendflare.io"
+            "homepage": "https://sendflare.com"
         }
     ],
     "require": {

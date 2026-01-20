@@ -16,7 +16,7 @@ use Sendflare\SDK\Model\SendEmailResp;
  */
 class SendflareClient
 {
-    private const BASE_URL = 'https://api.sendflare.io';
+    private const BASE_URL = 'https://api.sendflare.com';
     private const REQUEST_TIMEOUT = 10;
 
     private string $token;
