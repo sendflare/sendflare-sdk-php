@@ -64,7 +64,18 @@ class SendflareClient
         ];
 
         $response = $this->makeRequest('GET', $path, null, $params);
-        return $this->mapToObject($response, ListContactResp::class);
+        $result = $this->mapToObject($response, ListContactResp::class);
+        
+        // Handle nested data structure
+        if (isset($response['data']) && is_array($response['data'])) {
+            $contactListData = new Model\ContactListData();
+            if (isset($response['data']['list']) && is_array($response['data']['list'])) {
+                $contactListData->list = $response['data']['list'];
+            }
+            $result->data = $contactListData;
+        }
+        
+        return $result;
     }
 
     /**
