@@ -12,6 +12,7 @@ class CommonResponse
     public bool $success;
     public string $message;
     public int $ts;
+    /** @var T */
     public mixed $data = null;
 }
 

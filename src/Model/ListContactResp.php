@@ -5,30 +5,38 @@ namespace Sendflare\SDK\Model;
 /**
  * Get Contact list response entity
  */
-class ListContactResp
+class ListContactResp extends CommonResponse
 {
-    // CommonResponse fields
-    public string $requestId = '';
-    public int $code = 0;
-    public bool $success = false;
-    public string $message = '';
-    public int $ts = 0;
-    
+    // Data wrapper with pagination and list
+    /** @var ContactListData */
+    public mixed $data;
+
+    // Getter method
+    public function getData(): ContactListData
+    {
+        if (!$this->data instanceof ContactListData) {
+            // if array, convert to object
+            if (is_array($this->data)) {
+                $this->data = ContactListData::fromArray($this->data);
+            } else {
+                throw new \InvalidArgumentException('data must be instance of ContactListData');
+            }
+        }
+        return $this->data;
+    }
+}
+
+/**
+ * Nested data structure containing pagination and contact list
+ */
+class ContactListData
+{
     // PaginateResp fields
     public int $page = 0;
     public int $pageSize = 0;
     public int $totalCount = 0;
     
-    // Data wrapper with list
-    /** @var ContactListData|null */
-    public ?ContactListData $data = null;
-}
-
-/**
- * Nested data structure containing the contact list
- */
-class ContactListData
-{
+    // Contact list
     /** @var array<string, string>[] */
     public array $list = [];
 }

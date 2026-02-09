@@ -65,10 +65,12 @@ class SendflareClient
 
         $response = $this->makeRequest('GET', $path, null, $params);
         $result = $this->mapToObject($response, ListContactResp::class);
-        
-        // Handle nested data structure
-        if (isset($response['data']) && is_array($response['data'])) {
+        // Handle nested data structure with pagination
+        if (isset($response['data'])) {
             $contactListData = new Model\ContactListData();
+            $contactListData->page = $response['data']['page'] ?? 0;
+            $contactListData->pageSize = $response['data']['pageSize'] ?? 0;
+            $contactListData->totalCount = $response['data']['totalCount'] ?? 0;
             if (isset($response['data']['list']) && is_array($response['data']['list'])) {
                 $contactListData->list = $response['data']['list'];
             }
