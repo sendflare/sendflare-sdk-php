@@ -30,7 +30,9 @@ class SendflareClientTest extends TestCase
             'test@example.com',
             'to@example.com',
             'test',
-            'test email'
+            'test email',
+            ['cc@example.com'],
+            ['bcc@example.com']
         );
 
         try {
