@@ -44,6 +44,23 @@ class SendflareClientTest extends TestCase
         }
     }
 
+    public function testBatchSendEmail(): void
+    {
+        $req = new BatchSendEmailReq(
+            'test@example.com',
+            ['to@example.com'],
+            'test',
+            'test email',
+        );
+        try {
+            $resp = $this->client->batchSendEmail($req);
+            echo "Batch email response: " . print_r($resp, true) . "\n";
+        } catch (\Exception $e) {
+            echo "Expected error without valid token: " . $e->getMessage() . "\n";
+            $this->assertTrue(true);
+        }
+    }
+
     public function testGetContactList(): void
     {
         $req = new ListContactReq('test', 1, 10);

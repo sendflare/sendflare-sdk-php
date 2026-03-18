@@ -48,6 +48,22 @@ class SendflareClient
     }
 
     /**
+     * Send a batch of emails
+     *
+     * @param BatchSendEmailReq $req Batch send email request
+     * @return BatchSendEmailResp Batch send email response
+     * @throws \Exception
+     */
+    public function batchSendEmail(BatchSendEmailReq $req): BatchSendEmailResp
+    {
+        $path = '/v1/batchSend';
+        $data = $req->toArray();
+
+        $response = $this->makeRequest('POST', $path, $data);
+        return $this->mapToObject($response, BatchSendEmailResp::class);
+    }
+
+    /**
      * Get contact list
      *
      * @param ListContactReq $req List contact request
