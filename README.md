@@ -267,3 +267,18 @@ For more information, visit: [https://docs.sendflare.com](https://docs.sendflare
 
 [MIT](./LICENSE)
 
+
+## Attachments
+
+Single and batch email requests support an optional `attachments` list. Each attachment has `filename` and `content`, plus optional `contentType`, `contentId`, and `disposition`. Omit `disposition` for a normal attachment, or use `inline` and reference `contentId` from the HTML body (for example, `<img src="cid:logo">`).
+
+```php
+use Sendflare\SDK\Model\SendAttachment;
+
+$req->attachments = [
+    new SendAttachment('report.txt', base64_encode('hello')),
+    new SendAttachment('logo.png', $imageBase64, 'image/png', 'logo', 'inline'),
+];
+```
+
+`$req` can be a `SendEmailReq` or `BatchSendEmailReq`. `content` must already be Base64, without a `data:` URL prefix.

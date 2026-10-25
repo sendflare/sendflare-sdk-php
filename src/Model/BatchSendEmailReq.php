@@ -13,6 +13,9 @@ class BatchSendEmailReq
     public string $body;
     public array $cc;
     public array $bcc;
+    public array $replyTo;
+    /** @var SendAttachment[] */
+    public array $attachments = [];
 
     public function __construct(string $from, array $to, string $subject, string $body, array $cc, array $bcc, array $replyTo)
     {
@@ -27,7 +30,7 @@ class BatchSendEmailReq
 
     public function toArray(): array
     {
-        return [
+        return array_merge([
             'from' => $this->from,
             'to' => $this->to,
             'subject' => $this->subject,
@@ -35,7 +38,10 @@ class BatchSendEmailReq
             'cc' => $this->cc,
             'bcc' => $this->bcc,
             'replyTo' => $this->replyTo,
-        ];
+        ], $this->attachments ? ['attachments' => array_map(
+            fn (SendAttachment $attachment): array => $attachment->toArray(),
+            $this->attachments
+        )] : []);
     }
 }
 

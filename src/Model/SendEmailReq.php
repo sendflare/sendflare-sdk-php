@@ -13,6 +13,8 @@ class SendEmailReq
     public string $body;
     public array $cc;
     public array $bcc;
+    /** @var SendAttachment[] */
+    public array $attachments = [];
 
     public function __construct(string $from, string $to, string $subject, string $body, array $cc, array $bcc)
     {
@@ -26,14 +28,17 @@ class SendEmailReq
 
     public function toArray(): array
     {
-        return [
+        return array_merge([
             'from' => $this->from,
             'to' => $this->to,
             'subject' => $this->subject,
             'body' => $this->body,
             'cc' => $this->cc,
             'bcc' => $this->bcc,
-        ];
+        ], $this->attachments ? ['attachments' => array_map(
+            fn (SendAttachment $attachment): array => $attachment->toArray(),
+            $this->attachments
+        )] : []);
     }
 }
 
